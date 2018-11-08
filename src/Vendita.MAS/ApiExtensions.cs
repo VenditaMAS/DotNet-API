@@ -38,23 +38,23 @@ namespace Vendita.MAS
             return @this.FirstAsync(request);
         }
 
-        public static Task<T[]> ListAsync<Resource, T>(this IApi @this, params object[] identifiers)
+        public static Task<T[]> ListAsync<Identifier, Resource, T>(this IApi @this, params Identifier[] identifiers)
             where Resource: IResource, new()
         {
-            return @this.ListAsync(new GetRequest<Resource, Envelope<T>>(identifiers));
+            return @this.ListAsync(new GetRequest<Identifier, Resource, Envelope<T>>(identifiers));
         }
 
-        public static Task<T> GetAsync<Resource, T>(this IApi @this, object identifier)
+        public static Task<T> GetAsync<Identifier, Resource, T>(this IApi @this, Identifier identifier)
             where Resource: IResource, new()
         {
-            return @this.FirstAsync(new GetRequest<Resource, Envelope<T>>(identifier));
+            return @this.FirstAsync(new GetRequest<Identifier, Resource, Envelope<T>>(identifier));
         }
 
-        public static Task DeleteAsync<Resource>(this IApi @this, params object[] identifiers)
+        public static Task DeleteAsync<Identifier, Resource>(this IApi @this, params Identifier[] identifiers)
             where Resource: IResource, new()
         {
             if (identifiers.Length == 0) return Task.FromResult(true);
-            return @this.FirstAsync(new DeleteRequest<Resource, Envelope<object>>(identifiers));
+            return @this.FirstAsync(new DeleteRequest<Identifier, Resource, Envelope<object>>(identifiers));
         }
 
         public static Task<T> PostAsync<Resource, T>(this IApi @this, IResourceRequest<POST, Resource, Envelope<T>> request)
@@ -77,18 +77,17 @@ namespace Vendita.MAS
 
         public static Task<Form[]> ListFormsAsync(this IApi @this, params Guid[] identifiers)
         {
-            return @this.ListAsync<FormResource, Form>(identifiers);
+            return @this.ListAsync<Guid, Forms, Form>(identifiers);
         }
 
         public static Task DeleteFormsAsync(this IApi @this, params Guid[] identifiers)
         {
-            return @this.DeleteAsync<FormResource>(identifiers);
+            return @this.DeleteAsync<Guid, Forms>(identifiers);
         }
 
         public static Task<Invocation[]> ListInvocationsAsync(this IApi @this, params Guid[] identifiers)
         {
-            return @this.ListAsync<InvocationResource, Invocation>(identifiers);
+            return @this.ListAsync<Guid, Invocations, Invocation>(identifiers);
         }
-
     }
 }

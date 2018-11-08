@@ -9,7 +9,7 @@ namespace Vendita.MAS.Tests
         [Fact]
         public void Test1()
         {
-
+            
         }
     }
 }
