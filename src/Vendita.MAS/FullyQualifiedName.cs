@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Vendita.MAS
 {
@@ -53,10 +54,9 @@ namespace Vendita.MAS
             switch (reader.TokenType)
             {
                 case JsonToken.Null:
-                    reader.Read();
                     return null;
                 case JsonToken.String:
-                    return new FullyQualifiedName(reader.ReadAsString());
+                    return JValue.Load(reader).ToObject<string>();
                 default:
                     throw new JsonSerializationException();
             }

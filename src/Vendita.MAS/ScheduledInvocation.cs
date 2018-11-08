@@ -12,6 +12,8 @@ namespace Vendita.MAS
 
         [JsonProperty("process")]
         public FullyQualifiedName Process { get; private set; }
+        [JsonProperty("date_invoke")]
+        public DateTime Date { get; private set; }
 
         public static implicit operator ScheduledInvocation(string process)
         {

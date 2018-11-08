@@ -85,9 +85,9 @@ namespace Vendita.MAS
             return @this.DeleteAsync<Guid, Forms>(identifiers);
         }
 
-        public static Task<Invocation[]> ListInvocationsAsync(this IApi @this, params Guid[] identifiers)
+        public static Task<Invocation[]> ListInvocationsAsync(this IApi @this, DateTime dateInvoked, int period, params Guid[] identifiers)
         {
-            return @this.ListAsync<Guid, Invocations, Invocation>(identifiers);
+            return @this.ListAsync(new InvocationRequest(dateInvoked, period, identifiers)); 
         }
     }
 }
