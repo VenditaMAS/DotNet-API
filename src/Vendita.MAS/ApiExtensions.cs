@@ -18,6 +18,11 @@ namespace Vendita.MAS
             return tasks.Select(task => task.Result.Contents).SelectMany(a => a).ToArray();
         }
 
+        public static Task Authenticate(this IApi @this)
+        {
+            return @this.SendAsync(new AuthenticationRequest(), 1);
+        }
+
         public static async Task<T> FirstAsync<Method, Resource, T>(this IApi @this, IResourceRequest<Method, Resource, Envelope<T>> request)
             where Method: IMethod, new()
             where Resource: IResource, new()
@@ -54,7 +59,7 @@ namespace Vendita.MAS
             where Resource: IResource, new()
         {
             if (identifiers.Length == 0) return Task.FromResult(true);
-            return @this.FirstAsync(new DeleteRequest<Identifier, Resource, Envelope<object>>(identifiers));
+            return @this.SendAsync(new DeleteRequest<Identifier, Resource, Envelope<object>>(identifiers), 1);
         }
 
         public static Task<T> PostAsync<Resource, T>(this IApi @this, IResourceRequest<POST, Resource, Envelope<T>> request)
@@ -88,6 +93,12 @@ namespace Vendita.MAS
         public static Task<Invocation[]> ListInvocationsAsync(this IApi @this, DateTime dateInvoked, int period, params Guid[] identifiers)
         {
             return @this.ListAsync(new InvocationRequest(dateInvoked, period, identifiers)); 
+        }
+
+        public static Task<Invocation[]> ListInvocationsAsync(this IApi @this, int daysAgo, params Guid[] identifiers)
+        {
+            var dateInvoked = DateTime.UtcNow.AddDays((double)daysAgo * -1); 
+            return @this.ListInvocationsAsync(dateInvoked, daysAgo);
         }
     }
 }
