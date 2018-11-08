@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Vendita.MAS
+namespace Vendita.MAS.Requests
 {
     /// <summary>
     /// An optional interface implemented by resource

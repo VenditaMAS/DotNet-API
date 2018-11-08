@@ -1,6 +1,8 @@
 ﻿using System;
-namespace Vendita.MAS
+namespace Vendita.MAS.Requests
 {
+    using Vendita.MAS.Resources;
+
     public abstract class ResourceRequest<Identifier, Method, Resource, Response> :
         IResourceRequest<Method, Resource, Response>,
         IIdentified

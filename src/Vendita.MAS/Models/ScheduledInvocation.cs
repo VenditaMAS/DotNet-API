@@ -1,8 +1,11 @@
 using System;
 using Newtonsoft.Json;
 
-namespace Vendita.MAS
+namespace Vendita.MAS.Models
 {
+    using Vendita.MAS.Requests;
+    using Vendita.MAS.Resources;
+
     public class ScheduledInvocation: IResourceRequest<POST, Invocations, Envelope<Invocation>>
     {
         public ScheduledInvocation(FullyQualifiedName process)

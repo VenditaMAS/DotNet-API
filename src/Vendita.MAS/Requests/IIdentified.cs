@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Vendita.MAS
+namespace Vendita.MAS.Requests
 {
     public interface IIdentified
     {

@@ -1,6 +1,8 @@
 ﻿using System;
-namespace Vendita.MAS
+namespace Vendita.MAS.Requests
 {
+    using Resources;
+
     /// <summary>
     /// The interface implemented by types representing
     /// resource requests.

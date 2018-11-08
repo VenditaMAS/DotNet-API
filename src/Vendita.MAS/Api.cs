@@ -10,6 +10,9 @@ using Newtonsoft.Json.Serialization;
 
 namespace Vendita.MAS
 {
+    using Requests;
+    using Resources;
+
     public class Api: IApi, IDisposable
     {
         private readonly HttpClient client = new HttpClient();
@@ -33,7 +36,9 @@ namespace Vendita.MAS
 
         }
 
-        public async Task<Response> SendAsync<Method, Resource, Response>(IResourceRequest<Method, Resource, Response> request, int page) where Method : IMethod, new() where Resource : IResource, new()
+        public async Task<Response> SendAsync<Method, Resource, Response>(IResourceRequest<Method, Resource, Response> request, int page)
+            where Method: IMethod, new()
+            where Resource: IResource, new()
         {
             var resource = new Resource();
             var path = new UriBuilder(client.BaseAddress).Path;

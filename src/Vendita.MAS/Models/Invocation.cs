@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace Vendita.MAS
+namespace Vendita.MAS.Models
 {
     public class Invocation
     {

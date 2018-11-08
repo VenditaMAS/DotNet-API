@@ -1,5 +1,5 @@
 using System;
-namespace Vendita.MAS
+namespace Vendita.MAS.Resources
 {
     public class Forms: IResource
     {

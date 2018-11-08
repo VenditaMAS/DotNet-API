@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Vendita.MAS
+namespace Vendita.MAS.Models
 {
     [JsonConverter(typeof(FullyQualifiedNameJsonConverter))]
     public sealed class FullyQualifiedName: IEnumerable<Name>

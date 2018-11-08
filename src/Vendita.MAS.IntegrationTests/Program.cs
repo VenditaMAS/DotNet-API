@@ -9,7 +9,7 @@ namespace Vendita.MAS.IntegrationTests
     {
         static void Main(string[] args)
         {
-            var api = new Api(Settings.serverURL);
+            IApi api = new Api(Settings.serverURL);
             var task = Task.Run(async () => {
                 await api.Authenticate();
                 var invocations = await api.ListInvocationsAsync(90);

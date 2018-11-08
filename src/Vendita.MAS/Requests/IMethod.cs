@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 
-namespace Vendita.MAS
+namespace Vendita.MAS.Requests
 {
     public interface IMethod
     {
