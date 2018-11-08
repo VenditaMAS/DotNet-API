@@ -1,12 +1,13 @@
 ﻿using System;
 namespace Vendita.MAS
 {
-    public abstract class ResourceRequest<Method, Resource, Response, Identifier> :
+    public abstract class ResourceRequest<Method, Resource, Response> :
         IResourceRequest<Method, Resource, Response>,
         IIdentified
-        where Resource : IResource, new() where Method : IMethod, new()
+        where Resource : IResource, new() 
+        where Method : IMethod, new()
     {
-        public ResourceRequest(params Identifier[] identifiers)
+        public ResourceRequest(params object[] identifiers)
         {
             if (identifiers.Length > 0)
             {
@@ -17,26 +18,26 @@ namespace Vendita.MAS
         public string Identifiers { get; private set; }
     }
 
-    public class GetRequest<Resource, Response, Identifier> : ResourceRequest<GET, Resource, Response, Identifier>
+    public class GetRequest<Resource, Response> : ResourceRequest<GET, Resource, Response>
         where Resource : IResource, new()
     {
-        public GetRequest(params Identifier[] identifiers)
+        public GetRequest(params object[] identifiers)
             : base(identifiers)
         {
 
         }
 
         public GetRequest()
-            : this(new Identifier[0])
+            : this(new object[0])
         {
 
         }
     }
 
-    public class DeleteRequest<Resource, Response, Identifier> : ResourceRequest<DELETE, Resource, Response, Identifier>
+    public class DeleteRequest<Resource, Response> : ResourceRequest<DELETE, Resource, Response>
         where Resource : IResource, new()
     {
-        public DeleteRequest(params Identifier[] identifiers)
+        public DeleteRequest(params object[] identifiers)
             : base(identifiers)
         {
 
