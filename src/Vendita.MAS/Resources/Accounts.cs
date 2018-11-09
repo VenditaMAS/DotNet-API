@@ -4,6 +4,6 @@ namespace Vendita.MAS.Resources
 {
     public class Accounts: IResource
     {
-        public string Path { get; } = "credentials";
+        public string Path { get; } = "credential";
     }
 }

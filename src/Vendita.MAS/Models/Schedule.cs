@@ -6,9 +6,9 @@ namespace Vendita.MAS.Models
     using Vendita.MAS.Requests;
     using Vendita.MAS.Resources;
 
-    public class ScheduledInvocation: IResourceRequest<POST, Invocations, Envelope<Invocation>>
+    public class Schedule: IResourceRequest<POST, Schedules, Envelope<Invocation>>
     {
-        public ScheduledInvocation(FullyQualifiedName process)
+        public Schedule(FullyQualifiedName process)
         {
             Process = process;
         }
@@ -18,14 +18,14 @@ namespace Vendita.MAS.Models
         [JsonProperty("date_invoke")]
         public DateTime Date { get; private set; }
 
-        public static implicit operator ScheduledInvocation(string process)
+        public static implicit operator Schedule(string process)
         {
-            return new ScheduledInvocation(process);
+            return new Schedule(process);
         }
 
-        public static implicit operator ScheduledInvocation(FullyQualifiedName process)
+        public static implicit operator Schedule(FullyQualifiedName process)
         {
-            return new ScheduledInvocation(process);
+            return new Schedule(process);
         }
     }
 }

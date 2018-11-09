@@ -94,12 +94,17 @@ namespace Vendita.MAS
                 };
                 serializer.Serialize(jsonWriter, request);
                 stream.Seek(0, SeekOrigin.Begin);
+                var reader = new StreamReader(stream);
+                var up = await reader.ReadToEndAsync();
+                Console.WriteLine(up);
+                stream.Seek(0, SeekOrigin.Begin);
                 requestMessage.Content = new StreamContent(stream);
                 requestMessage.Content.Headers.Add("Content-Type", "application/json");
             }
             var responseMessage = await client.SendAsync(requestMessage);
             responseMessage.EnsureSuccessStatusCode();
             var raw = await responseMessage.Content.ReadAsStringAsync();
+            Console.WriteLine(raw);
             var settings = new JsonSerializerSettings()
             {
                 ContractResolver = new DefaultContractResolver()

@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Vendita.MAS;
+using Vendita.MAS.Models;
 
 namespace Vendita.MAS.IntegrationTests
 {
@@ -11,11 +12,11 @@ namespace Vendita.MAS.IntegrationTests
         {
             IApi api = new Api(Settings.serverURL);
             var task = Task.Run(async () => {
-                await api.Authenticate();
-                var invocations = await api.ListInvocationsAsync(90);
-                Console.WriteLine(invocations.Length);
+                var schedule = new Schedule("vendita.test_display");
+                await api.PostAsync(schedule);
             });
             task.Wait();
         }
     }
 }
+

@@ -34,6 +34,26 @@ namespace Vendita.MAS
             return @this.FirstAsync(request);
         }
 
+        public static Task<Account[]> ListAccountsAsync(this IApi @this, params Guid[] identifiers)
+        {
+            return @this.ListAsync<Guid, Accounts, Account>(identifiers);
+        }
+
+        public static Task<Account> GetAccountAsync(this IApi @this, Guid identifier)
+        {
+            return @this.GetAsync<Guid, Accounts, Account>(identifier);
+        }
+
+        public static Task DeleteAccountsAsync(this IApi @this, params Guid[] identifiers)
+        {
+            return @this.DeleteAsync<Guid, Accounts>(identifiers);
+        }
+
+        public static Task<DataType[]> ListDataTypesAsync(this IApi @this)
+        {
+            return @this.ListAsync<object, DataTypes, DataType>();
+        }
+
         public static Task<Form[]> ListFormsAsync(this IApi @this, params Guid[] identifiers)
         {
             return @this.ListAsync<Guid, Forms, Form>(identifiers);
@@ -53,6 +73,16 @@ namespace Vendita.MAS
         {
             var dateInvoked = DateTime.UtcNow.AddDays((double)daysAgo * -1); 
             return @this.ListInvocationsAsync(dateInvoked, daysAgo);
+        }
+
+        public static Task<Process[]> ListProcessesAsync(this IApi @this, params FullyQualifiedName[] identifiers)
+        {
+            return @this.ListAsync<FullyQualifiedName, Processes, Process>(identifiers);
+        }
+
+        public static Task<User[]> ListUsersAsync(this IApi @this)
+        {
+            return @this.ListAsync<object, Users, User>();
         }
     }
 }
