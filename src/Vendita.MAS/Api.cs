@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -80,39 +81,27 @@ namespace Vendita.MAS
             }
             builder.Query = String.Join("&", from p in parameters select $"{p.Key}={p.Value}");
             var requestMessage = new HttpRequestMessage(method.Method, builder.Uri);
-            if (method.BodyRequired)
-            {
-                var stream = new MemoryStream();
-                var writer = new StreamWriter(stream);
-                var jsonWriter = new JsonTextWriter(writer);
-                var serializer = new JsonSerializer()
-                {
-                    ContractResolver = new DefaultContractResolver()
-                    {
-                        NamingStrategy = new SnakeCaseNamingStrategy()
-                    }
-                };
-                serializer.Serialize(jsonWriter, request);
-                stream.Seek(0, SeekOrigin.Begin);
-                var reader = new StreamReader(stream);
-                var up = await reader.ReadToEndAsync();
-                Console.WriteLine(up);
-                stream.Seek(0, SeekOrigin.Begin);
-                requestMessage.Content = new StreamContent(stream);
-                requestMessage.Content.Headers.Add("Content-Type", "application/json");
-            }
-            var responseMessage = await client.SendAsync(requestMessage);
-            responseMessage.EnsureSuccessStatusCode();
-            var raw = await responseMessage.Content.ReadAsStringAsync();
-            Console.WriteLine(raw);
             var settings = new JsonSerializerSettings()
             {
                 ContractResolver = new DefaultContractResolver()
                 {
                     NamingStrategy = new SnakeCaseNamingStrategy(),
-                }
+                },
+                NullValueHandling = NullValueHandling.Ignore,
+                DateTimeZoneHandling = DateTimeZoneHandling.Utc,
+                DateFormatString = "yyyy'-'MM'-'dd'T'HH':'mm':'ss"
             };
-            return JsonConvert.DeserializeObject<Response>(raw, settings);
+            if (method.BodyRequired)
+            {
+                var up = JsonConvert.SerializeObject(request, settings);
+                Debug.WriteLine(up);
+                requestMessage.Content = new StringContent(up, Encoding.UTF8, "application/json");
+            }
+            var responseMessage = await client.SendAsync(requestMessage);
+            var down = await responseMessage.Content.ReadAsStringAsync();
+            Debug.WriteLine(down);
+            responseMessage.EnsureSuccessStatusCode();
+            return JsonConvert.DeserializeObject<Response>(down, settings);
         }
 
         public void Dispose()

@@ -13,6 +13,9 @@ namespace Vendita.MAS.Models
 
         [JsonProperty("date_invoke")]
         public DateTime DateInvoked { get; private set; }
+
+        [JsonProperty("status")]
+        public string Status { get; private set; }
     }
 }
 
