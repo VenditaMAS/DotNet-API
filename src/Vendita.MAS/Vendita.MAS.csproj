@@ -1,6 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <PackageId>Vendita.MAS</PackageId>
+    <Version>2.0.1</Version>
+    <Authors>Vendita Technologies, Inc.; Gregory Higley</Authors>
+    <Company>Vendita Technologies, Inc.</Company>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 

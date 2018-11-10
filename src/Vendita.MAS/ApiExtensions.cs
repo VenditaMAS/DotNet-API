@@ -75,6 +75,11 @@ namespace Vendita.MAS
             return @this.ListInvocationsAsync(dateInvoked, daysAgo);
         }
 
+        public static Task<Invocation.Output[]> ListInvocationOutputsAsync(this IApi @this, Guid identifier)
+        {
+            return @this.ListAsync(new InvocationOutputRequest(identifier));
+        }
+
         public static Task<Process[]> ListProcessesAsync(this IApi @this, params FullyQualifiedName[] identifiers)
         {
             return @this.ListAsync<FullyQualifiedName, Processes, Process>(identifiers);

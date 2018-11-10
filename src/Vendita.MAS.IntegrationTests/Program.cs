@@ -17,7 +17,10 @@ namespace Vendita.MAS.IntegrationTests
         {
             var task = Task.Run(async () => {
                 IApi api = new Api(Settings.serverURL);
-                await api.PostAsync(new ScheduledInvocation("vendita.test_display", date: DateTime.UtcNow.AddSeconds(20)));
+                var invocation = await api.PostAsync(new ScheduledInvocation("vendita.test_display"));
+                await Task.Delay(1000 * 5); // Wait five seconds
+                var outputs = await api.ListInvocationOutputsAsync(invocation.UUID);
+                Console.WriteLine(outputs.Length);
             });
             task.Wait();
         }
