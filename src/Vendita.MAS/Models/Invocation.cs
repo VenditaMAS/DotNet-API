@@ -25,6 +25,11 @@ namespace Vendita.MAS.Models
                 Status = status;
             }
 
+            public virtual object Value 
+            {
+                get { return null; }
+            }
+
             public InvocationStatus Status { get; private set; }
         }
 
@@ -37,6 +42,7 @@ namespace Vendita.MAS.Models
             }
 
             public string Text { get; private set; }
+            public override object Value { get { return Text; } }
         }
 
         public class ProgressOutput: Output
@@ -48,6 +54,7 @@ namespace Vendita.MAS.Models
             }
 
             public float Progress { get; private set; }
+            public override object Value { get { return Progress; } }
         }
 
         [JsonProperty("uuid")]
